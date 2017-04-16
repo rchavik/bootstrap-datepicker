@@ -1104,7 +1104,7 @@
 								break;
 							case 'today':
 								var date = new Date();
-								date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
+								date = UTCDate(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
 
 								this.showMode(-2);
 								var which = this.o.todayBtn === 'linked' ? null : 'view';
@@ -1834,9 +1834,9 @@
 		},
 
 		timepickerTemplate: function(){
-			var optionTags = function(min, max){
+			var optionTags = function(min, max, step){
 				var s = '';
-				for (var i = min; i < max; i++){
+				for (var i = min; i < max; i += step || 1) {
 					var val = ('0' + i).slice(-2);
 					s += '<option value="' + val + '">' + val + '</option>';
 				}
@@ -1844,21 +1844,21 @@
 			};
 
 			return '<tr>'+
-				'<th class="timepicker" colspan="7">'+
-					'<select class="time" name="hour">'+
+				'<th class="timepicker form-inline" colspan="7">'+
+					'<select class="time form-control" name="hour">'+
 						optionTags(0, 24)+
 					'</select>'+
-					'<select class="time" name="minute">'+
-						optionTags(0, 60)+
+					'<select class="time form-control" name="minute">'+
+						optionTags(0, 60, 5)+
 					'</select>'+
-					'<select class="time" name="second">'+
-						optionTags(0, 60)+
+					'<select class="time form-control" name="second">'+
+						optionTags(0, 60, 5)+
 					'</select>'+
-					'<select class="time" name="ampm">'+
+					'<select class="time form-control" name="ampm">'+
 						'<option value="am">am</option>'+
 						'<option value="pm">pm</option>'+
 					'</select>'+
-					'<button class="btn btn-success">' +
+					' <button class="btn btn-success">' +
 						'<span class="glyphicon glyphicon-ok"></span>' +
 					'</button>'+
 				'</th>'+
